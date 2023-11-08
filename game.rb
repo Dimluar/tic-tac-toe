@@ -13,7 +13,7 @@ class Game
 
   private
 
-  attr_accessor :players, :winner_id
+  attr_accessor :players, :winner_id, :turn
 
   def create_players
     welcome_msg(1)
@@ -40,6 +40,14 @@ class Game
       puts 'That one is already in use!' if char == used_char
     end
     char
+  end
+
+  def select_first_turn
+    @turn = rand(0..1)
+  end
+
+  def turn_msg(turn_number)
+    puts "It's your turn #{players[turn_number].name}:"
   end
 end
 
