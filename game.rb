@@ -9,7 +9,12 @@ class Game
     @players = []
   end
 
-  def play; end
+  def play
+    create_players
+    select_first_turn
+    # round
+    game_over
+  end
 
   private
 
@@ -47,7 +52,19 @@ class Game
   end
 
   def turn_msg(turn_number)
-    puts "It's your turn #{players[turn_number].name}:"
+    puts "\nIt's your turn #{players[turn_number].name}:"
+  end
+
+  def select_winner(board)
+    @winner_id = board.set_game_over unless board.set_game_over.nil?
+  end
+
+  def game_over
+    if winner_id == 'none'
+      puts "\nOh! It's a tie! Better luck next time!"
+    else
+      puts "\nAnd #{players[winner_id].name} wins! Good game!"
+    end
   end
 end
 
