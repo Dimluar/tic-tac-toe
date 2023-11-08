@@ -18,8 +18,8 @@ class Board
     BOARD
   end
 
-  def change_board(char, position)
-    elements[position] = char
+  def change_board(player, position)
+    elements[position] = player.character
   end
 
   private
