@@ -11,9 +11,12 @@ class Game
 
   def play
     create_players
-    select_first_turn
+    5.times do
+      select_first_turn
+      puts turn
+    end
     # round
-    game_over
+    # game_over
   end
 
   private
@@ -48,7 +51,7 @@ class Game
   end
 
   def select_first_turn
-    @turn = rand(0..1)
+    @turn = rand(0..9) % 2
   end
 
   def turn_msg(turn_number)
