@@ -7,16 +7,14 @@ require_relative 'board'
 class Game
   def initialize
     @players = []
+    @ocuppaid_cells = []
   end
 
   def play
     create_players
-    5.times do
-      select_first_turn
-      puts turn
-    end
-    # round
-    # game_over
+    select_first_turn
+    play_rounds
+    game_over
   end
 
   private
@@ -59,7 +57,7 @@ class Game
   end
 
   def select_winner(board)
-    @winner_id = board.set_game_over unless board.set_game_over.nil?
+    @winner_id = board.winner
   end
 
   def game_over
@@ -68,6 +66,49 @@ class Game
     else
       puts "\nAnd #{players[winner_id].name} wins! Good game!"
     end
+  end
+
+  def increase_turn
+    @turn = (@turn + 1) % 2
+  end
+
+  def move_msg
+    puts 'Write the number of the cell you want to place your piece:'
+  end
+
+  def select_move
+    move = ''
+    move_msg
+    until move.between?('0', '8') && !@ocuppaid_cells.include?(move.to_i)
+      move = gets.chomp
+      puts 'Introduce a valid value' unless move.between?('0', '8')
+      puts 'Introduce a free cell' if @ocuppaid_cells.include?(move.to_i)
+    end
+    move
+  end
+
+  def use_move(board, move)
+    move = move.to_i
+    @ocuppaid_cells.push(move)
+    board.change_board(players[turn], move)
+    increase_turn
+  end
+
+  def add_char(board)
+    players.each { |player| board.add_char(player) }
+  end
+
+  def play_rounds
+    board = Board.new
+    add_char(board)
+    while board.winner.nil?
+      turn_msg(turn)
+      board.display_board
+      use_move(board, select_move)
+      board.set_game_over
+    end
+    board.display_board
+    select_winner(board)
   end
 end
 
