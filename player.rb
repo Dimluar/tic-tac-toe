@@ -2,10 +2,12 @@
 
 # Game players
 class Player
-  attr_reader :name, :char
+  attr_reader :name, :char, :id
 
-  def initialize(name, char)
+  def initialize(id, name, char)
+    @id = id
     @name = name
     @character = char
+    @its_turn = false
   end
 end
