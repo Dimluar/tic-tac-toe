@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-require_relative 'game'
+require_relative 'classes/game'
 
 def play_game
   game = Game.new
