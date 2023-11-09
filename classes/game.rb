@@ -79,10 +79,12 @@ class Game
   def select_move
     move = ''
     move_msg
-    until move.to_i.between?(0, 8) && !@ocuppaid_cells.include?(move.to_i)
+    until move.between?('0', '8') && !@ocuppaid_cells.include?(move.to_i)
       move = gets.chomp
-      puts 'Introduce a valid value' unless move.to_i.between?(0, 8)
+      move = '9' unless move.length == 1
+      puts 'Introduce a valid value' unless move.between?('0', '8')
       puts 'Introduce a free cell' if @ocuppaid_cells.include?(move.to_i)
+
     end
     move
   end
