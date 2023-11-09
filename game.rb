@@ -111,6 +111,3 @@ class Game
     select_winner(board)
   end
 end
-
-game = Game.new
-game.play
