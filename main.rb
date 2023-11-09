@@ -5,16 +5,16 @@ require_relative 'classes/game'
 def play_game
   game = Game.new
   game.play
-  sleep(3)
   replay_game
 end
 
 def replay_game?
-  puts "\nReady for another round? -yes -no"
+  puts 'Ready for another round? -yes -no'
   awnser = ''
   until %w[yes no].include?(awnser)
     awnser = gets.chomp.downcase
-    puts "\nPlease, awnser the question :')"
+
+    puts "\nPlease, awnser the question :')" unless %w[yes no].include?(awnser)
   end
   awnser == 'yes'
 end
